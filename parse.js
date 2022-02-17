@@ -24,16 +24,21 @@ const formatLogs = (logs) => {
   const regex = /^[\w]{7}\s(?:\(.*\)\s)?/gm;
   const finalLogs = currentReleaseLogs.replace(regex, '');
   console.log(addProperTicket(finalLogs));
+  return addProperTicket(finalLogs);
 }
 
-exec("git log --oneline --decorate", (error, stdout, stderr) => {
-    if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-    }
-    if (stderr) {
-        console.log(stderr);
-        return;
-    }
-    formatLogs(stdout)
-});
+// exec("git log --oneline --decorate", (error, stdout, stderr) => {
+//     if (error) {
+//         console.log(`error: ${error.message}`);
+//         return;
+//     }
+//     if (stderr) {
+//         console.log(stderr);
+//         return;
+//     }
+//     formatLogs(stdout)
+// });
+
+module.exports = {
+  formatLogs
+}
