@@ -1,5 +1,6 @@
 const { exec } = require("child_process");
 // add this for 1234
+// more no ticket
 const getLogsForLatestRelease = (logs) => {
   const logsArr = logs.split('\n');
   const releaseMsgStartingPattern = /\) RELEASE \d/;
