@@ -1,6 +1,6 @@
 const { exec } = require("child_process");
 
-const getLogsForThisRelease = (logs, previousVersion) => {
+const getLogsForThisRelease = (logs, previousVersion = '') => {
   return logs;
 }
 
