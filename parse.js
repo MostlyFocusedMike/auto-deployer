@@ -1,8 +1,13 @@
 const { exec } = require("child_process");
 
+const getLogsForThisRelease = (logs, previousVersion) => {
+  return logs;
+}
+
 const formatLogs = (logs) => {
   console.log(logs);
-  const finalLogs = logs.replace(/^[\w]{7}\s(?:\(.*\)\s)?/gm, '')
+  const currentReleaseLogs = getLogsForThisRelease(logs, '1.0.0');
+  const finalLogs = currentReleaseLogs.replace(/^[\w]{7}\s(?:\(.*\)\s)?/gm, '')
   console.log(finalLogs);
 }
 
