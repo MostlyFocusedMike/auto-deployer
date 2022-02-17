@@ -37,6 +37,7 @@ const run = () => {
           console.log(stderr);
           return;
       }
+      console.log('RELEASE 2.1.0\n')
       console.log(formatLogs(stdout));
   });
 }
