@@ -1,21 +1,29 @@
 const { exec } = require("child_process");
 
-const getLogsForThisRelease = (logs, previousVersion = '') => {
+const getLogsForThisRelease = (logs, prevRelease = '') => {
   const logsArr = logs.split('\n');
-  const upToIndex = logsArr.findIndex(log => log.search(`tag: ${previousVersion}`) > 0)
-  const releaseLogs = logsArr.slice(0, upToIndex)
-  console.log('logsArr:', );
-  return releaseLogs.join('\n');
+  const prevTag = `tag: ${prevRelease}`;
+  const prevReleaseIdx = logsArr.findIndex(log => log.search(prevTag) > 0);
+  return logsArr.slice(0, prevReleaseIdx).join('\n');
+}
+
+const addProperTicket = (logs) => {
+  const finalLogs = [];
+  logs.split('\n').forEach(log => {
+    const finalLog = log.trim().replace(/^\d{4}/, (num) => `[MKTG-${num}]`);
+    if (finalLog === "Merge branch 'master' into develop") return;
+    finalLogs.push(finalLog);
+  });
+  return finalLogs.join('\n');
 }
 
 const formatLogs = (logs) => {
-  console.log('RAW LOGS:');
   console.log(logs);
   console.log('----------------------------:', );
   const currentReleaseLogs = getLogsForThisRelease(logs, '1.1.0');
-  const finalLogs = currentReleaseLogs.replace(/^[\w]{7}\s(?:\(.*\)\s)?/gm, '')
-  console.log('RAW LOGS:');
-  console.log(finalLogs);
+  const regex = /^[\w]{7}\s(?:\(.*\)\s)?/gm;
+  const finalLogs = currentReleaseLogs.replace(regex, '');
+  console.log(addProperTicket(finalLogs));
 }
 
 exec("git log --oneline --decorate", (error, stdout, stderr) => {
