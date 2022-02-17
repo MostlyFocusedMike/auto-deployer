@@ -2,7 +2,7 @@ const { describe, it, expect } = require("@jest/globals")
 const { formatLogs } = require("./parse")
 
 describe("Parsing Tests", () => {
-  it('it gets the right start', () => {
+  it('Gets the right output', () => {
     const defaultLogs = `8e0b282 (HEAD -> main) install jest
 9332a5e 6874 Add prefixes to ticket
 bc528b2 [MKTG-6273] get basic script working
